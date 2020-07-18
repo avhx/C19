@@ -8,9 +8,10 @@ import { MapService } from 'src/app/map.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private mapService: MapService) { }
 
   ngOnInit() {
+
   }
 
 }
