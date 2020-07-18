@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MAP_API_CONFIG } from './config';
+import { GOOGLE_MAP_JS_API_KEY } from './config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-
-  constructor() { console.log(MAP_API_CONFIG.KEY) }
+  constructor() { console.log(GOOGLE_MAP_JS_API_KEY) }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MapService } from 'src/app/map.service';
 
 @Component({
   selector: 'app-dashboard',
