@@ -318,7 +318,7 @@ export class MapService {
             strokeOpacity: 0.8,
             strokeWeight: 2,
             fillColor: COUNTY_CONCENTRATION,
-            fillOpacity: 0.35
+            fillOpacity: 0.5
           });
   
           this.countyMap.set(COUNTY_COUNTY, COUNTY_NAME);
@@ -332,11 +332,11 @@ export class MapService {
           });
   
           google.maps.event.addListener(COUNTY_COUNTY, 'mouseover', function() {
-            this.setOptions({fillOpacity: "0.5"})
+            this.setOptions({fillOpacity: "0.75"})
           });
   
           google.maps.event.addListener(COUNTY_COUNTY, 'mouseout', function() {
-            this.setOptions({fillOpacity: "0.35"})
+            this.setOptions({fillOpacity: "0.5"})
           });
   
           COUNTY_COUNTY.setMap(this.map) // preloads county
