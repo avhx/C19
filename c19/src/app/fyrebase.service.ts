@@ -52,4 +52,30 @@ export class FyrebaseService {
       )
     })
   }
+
+  public getStateCases(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const currDoc = this.firestore.doc('/tn/general_cases');
+      currDoc.get().subscribe(
+        (val) => {
+          resolve(val.data())
+        }, (err) => {
+          reject(err);
+        }
+      )
+    })
+  }
+
+  public _getState(url:string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const currDoc = this.firestore.doc(url);
+      currDoc.get().subscribe(
+        (val) => {
+          resolve(val.data())
+        }, (err) => {
+          reject(err);
+        }
+      )
+    })
+  }
 }

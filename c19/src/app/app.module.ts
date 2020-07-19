@@ -54,6 +54,7 @@ import { CountyDialogComponent } from './components/county-dialog/county-dialog.
 // Graphing:
 import { ChartsModule } from 'ng2-charts';
 import { StatusBarComponent } from './components/county-dialog/status-bar/status-bar.component';
+import { ReportBarComponent } from './components/county-dialog/report-bar/report-bar.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { StatusBarComponent } from './components/county-dialog/status-bar/status
     CountyDialogComponent,
     NewsCardComponent,
     StatusBarComponent,
+    ReportBarComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,11 @@ import {} from '@google/maps';
 import { CountyDialogComponent } from '../county-dialog/county-dialog.component';
 import { NewsCardComponent, NewsCard } from '../news-card/news-card.component';
 import { ROUTER_CONFIGURATION } from '@angular/router';
+
+import { ChartDataSets, ChartOptions, ChartData } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
+import { FyrebaseService } from 'src/app/fyrebase.service';
+
 import { Observable} from 'rxjs';
 import { map, filter, switchMap } from 'rxjs/operators';
 
@@ -27,9 +32,78 @@ export class DashboardComponent implements OnInit {
     max: 7.5,
     step: 1,
   }
+
+  /*
+   * GRAPHING STUFF: 
+   */
+
+  public lineCasesChartData: ChartDataSets[] = [];
+  public lineCasesChartLabels: Label[] = [];
+  public lineCasesChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    title: {
+      display: true,
+      text: ''
+    }
+  };
+  public lineCasesChartLegend = true;
+  public lineCasesChartType = 'line';
+
+////////////////////////////////////////////////////
+
+  public lineAgeChartData: ChartDataSets[] = [];
+  public lineAgeChartLabels: Label[] = [];
+  public lineAgeChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    title: {
+      display: true,
+      text: ''
+    }
+  };
+  public lineAgeChartLegend = true;
+  public lineAgeChartType = 'line';
+
+//////////////////////////////////////////////////////
+
+  public lineRaceChartData: ChartDataSets[] = [];
+  public lineRaceChartLabels: Label[] = [];
+  public lineRaceChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    title: {
+      display: true,
+      text: ''
+    }
+  };
+  public lineRaceChartLegend = true;
+  public lineRaceChartType = 'line';
+
+/////////////////////////////////////////////////////
+
+  public lineSexChartData: ChartDataSets[] = [];
+  public lineSexChartLabels: Label[] = [];
+  public lineSexChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    title: {
+      display: true,
+      text: ''
+    }
+  };
+  public lineSexChartLegend = true;
+  public lineSexChartType = 'line';
+
+  // pi chart?
+
+  /*
+   * GRAPHING STUFF: 
+  */
+
   concentrationMonth = this.sliderConfig.max;
 
-  constructor(private mapService: MapService, private httpClient: HttpClient) {
+  constructor(private mapService: MapService, private httpClient: HttpClient, private fyre: FyrebaseService) {
     // mapService.loadAPI.then((resolve) => {
     //   console.log("DONE!");
     //   var node = document.createElement("google-map");                 // Create a <li> node
@@ -87,6 +161,45 @@ export class DashboardComponent implements OnInit {
     // });
   
     // border.setMap(this.map);
+
+    /*Load graphs here:*/
+    this.fyre.getStateCases().then(
+      (val) => {
+        this.lineCasesChartLabels = val.date_labels;
+        this.lineCasesChartData.push({data: val.total_cases, label:"Total Infected Cases"});
+        this.lineCasesChartOptions.title.text = 'Total Number of Cases of COVID-19 in Tennessee';
+      }
+    )
+
+    this.fyre._getState('/tn/age_data').then(
+      (val) => {
+        this.lineAgeChartLabels = val.labels;
+        val.datasets.forEach(element => {
+          this.lineAgeChartData.push({data: element.data, label: element.label});
+        });
+        this.lineAgeChartOptions.title.text = val.options.title.text;
+      }
+    )
+
+    this.fyre._getState('/tn/race_data').then(
+      (val) => {
+        this.lineRaceChartLabels = val.labels;
+        val.datasets.forEach(element => {
+          this.lineRaceChartData.push({data: element.data, label: element.label});
+        });
+        this.lineRaceChartOptions.title.text = val.options.title.text;
+      }
+    )
+
+    this.fyre._getState('/tn/sex_data').then(
+      (val) => {
+        this.lineSexChartLabels = val.labels;
+        val.datasets.forEach(element => {
+          this.lineSexChartData.push({data: element.data, label: element.label});
+        });
+        this.lineSexChartOptions.title.text = val.options.title.text;
+      }
+    )
   }
 
   public sliderValueChange(event: any) {
@@ -98,7 +211,7 @@ export class DashboardComponent implements OnInit {
     } else if(this.centerPieceMode == 'age') {
 
     } else {
-      
+
     }
   }
 
