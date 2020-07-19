@@ -922,10 +922,11 @@ function genStateGeneralInfo() {
             //var _total_confirmed = [];
             // var _tested = [];
             // var _tested_new = [];
-            // var _total_active = [];
+            var _total_active = [];
             // var _new_active = [];
-            // var _total_death = [];
+            var _total_death = [];
             // var _new_death = [];
+            var _total_recovered = [];
 
             _rds.forEach(rds => {
                 const date = rds[0];
@@ -939,14 +940,16 @@ function genStateGeneralInfo() {
                 // if(tested == null) {tested = 0;}
                 // var tested_new = rds[20];
                 // if(tested_new == null) {tested_new = 0;}
-                // var total_active= rds[9];
-                // if(total_active == null) {total_active = 0;}
+                var total_active= rds[7];
+                if(total_active == null) {total_active = 0;}
                 // var new_active = rds[11];
                 // if(new_active == null) {new_active = 0;}
-                // var total_death = rds[13];
-                // if(total_death == null) {total_death = 0;}
+                var total_death = rds[13];
+                if(total_death == null) {total_death = 0;}
                 // var new_death = rds[14];
                 // if(new_death == null) {new_death = 0;}
+                var total_recovered = rds[11]
+                if(total_recovered == null) {total_recovered = 0;}
                 
                 if(_labels[date] == undefined) {
                     _labels[date] = -1;
@@ -956,10 +959,12 @@ function genStateGeneralInfo() {
                 //_total_confirmed.push(total_confirmed);
                 // _tested.push(tested);
                 // _tested_new.push(tested_new);
-                // _total_active.push(total_active);
+                _total_active.push(total_active);
                 // _new_active.push(new_active);
                 // _total_death.push(total_death);
                 // _new_death.push(new_death);
+                _total_death.push(total_death);
+                _total_recovered.push(total_recovered);
             });
 
             const new_label = Object.keys(_labels);
@@ -971,12 +976,18 @@ function genStateGeneralInfo() {
                     doc.update({
                         'date_labels': new_label,
                         'total_cases': _total_cases,
+                        'total_death': _total_death,
+                        'total_active': _total_active,
+                        'total_recovered': _total_recovered
                     });
                 } else {
                     // force set instead:
                     doc.set({
                         'date_labels': new_label,
                         'total_cases': _total_cases,
+                        'total_death': _total_death,
+                        'total_active': _total_active,
+                        'total_recovered': _total_recovered
                     });
                 }
             });
@@ -1126,10 +1137,10 @@ function initialize() {
     //generateMobilityStruct();
     //generateTNRaceStruct();
     //generateTNAgeStruct();
-    generateCaseHistoryStruct();
+    //generateCaseHistoryStruct();
     //generateConcentrationStruct();
     //generateTNSexStruct();
-    //genStateGeneralInfo();
+    genStateGeneralInfo();
     //genCountyAgeStruct();
 }
 
