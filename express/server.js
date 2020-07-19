@@ -1139,9 +1139,10 @@ function initialize() {
     //generateTNAgeStruct();
     //generateCaseHistoryStruct();
     //generateConcentrationStruct();
+    
     //generateTNSexStruct();
-    genStateGeneralInfo();
-    //genCountyAgeStruct();
+    //genStateGeneralInfo();
+    genCountyAgeStruct();
 }
 
 app.listen(8080, function() {
