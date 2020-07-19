@@ -20,14 +20,16 @@ export class CountyDialogComponent implements OnInit {
   public currentDeathCount: Number;
 
   public mobilityTable = [
-    {'grocery_pharmacy': 0},
-    {'park_pct': 0},
-    {'retail_recreation_pct': 0},
-    {'transit_pct': 0},
-    {'workplace_pct': 0}
+    {
+      grocery_pharmacy_pct: 0,
+      park_pct: 0,
+      retail_recreation_pct: 0,
+      transit_pct: 0,
+      workplace_pct: 0
+    } 
   ]
 
-  displayedColumns: string[] = ['grocery_pharmacy', 'park_pct', 'retail_recreation_pct','transit_pct', 'workplace_pct'];
+  displayedColumns: string[] = ['grocery_pharmacy_pct', 'park_pct', 'retail_recreation_pct','transit_pct', 'workplace_pct'];
 
   // Graph for totalCases & totalDeath
   public lineChartData: ChartDataSets[] = [];
@@ -82,6 +84,14 @@ export class CountyDialogComponent implements OnInit {
         this.currentActive = val.total_active[val.total_active.length-1]
         this.currentTotalCase =  val.total_cases[val.total_cases.length-1]
         this.currentDeathCount = val.total_death[val.total_death.length-1]
+
+        // update mobility table
+        this.mobilityTable[0]["grocery_pharmacy_pct"] = val.mobility["grocery_pharamacy_pct"];
+        this.mobilityTable[0]["park_pct"] = val.mobility["park_pct"];
+        this.mobilityTable[0]["retail_recreation_pct"] = val.mobility["retail_recreation_pct"];
+        this.mobilityTable[0]["transit_pct"] = val.mobility["transit_pct"];
+        this.mobilityTable[0]["worplace_pct"] = val.mobility["worplace_pct"];
+        console.log(this.mobilityTable[0]);
 
         this.lineChartLabels = val.date_labels;
         this.lineChartData.push({data: val.total_cases, label: 'Total Cases'});

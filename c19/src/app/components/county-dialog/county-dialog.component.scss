@@ -26,6 +26,16 @@ mat-dialog-content {
     margin-bottom: 30px;
 }
 
+.mat-header-cell {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mat-cell {
+    text-align: center;
+    justify-content: center;;
+}
+
 #stickyStats {
     display: grid;
     grid-template-columns: auto auto auto;
