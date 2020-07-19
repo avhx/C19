@@ -4,7 +4,27 @@
         <button mat-button [mat-dialog-close]="true"><mat-icon aria-hidden="false" aria-label="Close dialog box">close</mat-icon></button>
     </div>
     <mat-dialog-content>
-        
+        <status-bar [countyName]="countyTitle"></status-bar>
+        <div id="stickyStats">
+            <mat-card>
+                <h3><b>Current Active Cases:</b></h3> <h1>{{currentActive}}</h1>
+            </mat-card>
+
+            <mat-card>
+                <h3><b>Current Total Cases:</b></h3> <h1>{{currentTotalCase}}</h1>
+            </mat-card>
+
+            <mat-card>
+                <h3><b>Current Deaths:</b></h3><h1>{{currentDeathCount}}</h1>
+            </mat-card>
+        </div>
+        <canvas baseChart 
+            [datasets]="lineChartData" 
+            [labels]="lineChartLabels" 
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend" 
+            [chartType]="lineChartType">
+        </canvas>
     </mat-dialog-content>
 </div>
 
