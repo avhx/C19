@@ -7,59 +7,78 @@
 </mat-toolbar>
 
 <div class="center-item">
-  <div id="map" [class]="centerPieceMode"></div>
-  <div id="cases" [class]="centerPieceMode">
-    <mat-spinner *ngIf="lineCasesChartData.length == 0"></mat-spinner>
-    <canvas baseChart *ngIf="lineCasesChartData.length > 0" 
-      [datasets]="lineCasesChartData" 
-      [labels]="lineCasesChartLabels" 
-      [options]="lineCasesChartOptions"
-      [legend]="lineCasesChartLegend" 
-      [chartType]="lineCasesChartType">
-    </canvas>
+  <div class="card-board">
+    <mat-card>
+      <h3>Total State Cases:</h3>
+      <h1>{{totalCases}}</h1>
+    </mat-card>
+    <mat-card>
+      <h3>Total Deaths in State:</h3>
+      <h1>{{deathCases}}</h1>
+    </mat-card>
+    <mat-card>
+      <h3>Total Active State Cases:</h3>
+      <h1>{{activeCases}}</h1>
+    </mat-card>
+    <mat-card>
+      <h3>Total Recovered Cases:</h3>
+      <h1>{{recoveredCases}}</h1>
+    </mat-card>
   </div>
-  <div id="age" [class]="centerPieceMode">
-    <mat-spinner *ngIf="lineAgeChartData.length == 0"></mat-spinner>
-    <canvas baseChart *ngIf="lineAgeChartData.length > 0" 
-      [datasets]="lineAgeChartData" 
-      [labels]="lineAgeChartLabels" 
-      [options]="lineAgeChartOptions"
-      [legend]="lineAgeChartLegend" 
-      [chartType]="lineAgeChartType">
-    </canvas>
+  <div class="chart-viz">
+    <div id="map" [class]="centerPieceMode"></div>
+    <div id="cases" [class]="centerPieceMode">
+      <mat-spinner *ngIf="lineCasesChartData.length == 0"></mat-spinner>
+      <canvas baseChart *ngIf="lineCasesChartData.length > 0" 
+        [datasets]="lineCasesChartData" 
+        [labels]="lineCasesChartLabels" 
+        [options]="lineCasesChartOptions"
+        [legend]="lineCasesChartLegend" 
+        [chartType]="lineCasesChartType">
+      </canvas>
+    </div>
+    <div id="age" [class]="centerPieceMode">
+      <mat-spinner *ngIf="lineAgeChartData.length == 0"></mat-spinner>
+      <canvas baseChart *ngIf="lineAgeChartData.length > 0" 
+        [datasets]="lineAgeChartData" 
+        [labels]="lineAgeChartLabels" 
+        [options]="lineAgeChartOptions"
+        [legend]="lineAgeChartLegend" 
+        [chartType]="lineAgeChartType">
+      </canvas>
 
-  </div>
-  <div id="race" [class]="centerPieceMode">
-    <mat-spinner *ngIf="lineRaceChartData.length == 0"></mat-spinner>
-    <canvas baseChart *ngIf="lineRaceChartData.length > 0" 
-      [datasets]="lineRaceChartData" 
-      [labels]="lineRaceChartLabels" 
-      [options]="lineRaceChartOptions"
-      [legend]="lineRaceChartLegend" 
-      [chartType]="lineRaceChartType">
-    </canvas>
-  </div>
-  
-  <div id="sex" [class]="centerPieceMode">
-    <mat-spinner *ngIf="lineSexChartData.length == 0"></mat-spinner>
-    <canvas baseChart *ngIf="lineSexChartData.length > 0" 
-      [datasets]="lineSexChartData" 
-      [labels]="lineSexChartLabels" 
-      [options]="lineSexChartOptions"
-      [legend]="lineSexChartLegend" 
-      [chartType]="lineSexChartType">
-    </canvas>
+    </div>
+    <div id="race" [class]="centerPieceMode">
+      <mat-spinner *ngIf="lineRaceChartData.length == 0"></mat-spinner>
+      <canvas baseChart *ngIf="lineRaceChartData.length > 0" 
+        [datasets]="lineRaceChartData" 
+        [labels]="lineRaceChartLabels" 
+        [options]="lineRaceChartOptions"
+        [legend]="lineRaceChartLegend" 
+        [chartType]="lineRaceChartType">
+      </canvas>
+    </div>
+    <div id="sex" [class]="centerPieceMode">
+      <mat-spinner *ngIf="lineSexChartData.length == 0"></mat-spinner>
+      <canvas baseChart *ngIf="lineSexChartData.length > 0" 
+        [datasets]="lineSexChartData" 
+        [labels]="lineSexChartLabels" 
+        [options]="lineSexChartOptions"
+        [legend]="lineSexChartLegend" 
+        [chartType]="lineSexChartType">
+      </canvas>
 
-  </div>
-  <div class="toolbar">
-    <mat-slider [disabled]="centerPieceMode != 'map'" thumbLabel tickInterval="1" [min]="sliderConfig.min" [max]="sliderConfig.max" [step]="sliderConfig.step" value={{sliderConfig.max}} (change)="sliderValueChange($event)"></mat-slider>
-    <mat-chip-list aria-label="Visualization-type selection">
-      <mat-chip color="primary" selected (click)="setPieceMode('map')">Map</mat-chip>
-      <mat-chip (click)="setPieceMode('cases')">State Cases</mat-chip>
-      <mat-chip (click)="setPieceMode('age')">Age Demographics</mat-chip>
-      <mat-chip (click)="setPieceMode('race')">Race Demographics</mat-chip>
-      <mat-chip (click)="setPieceMode('sex')">Sex Demographics</mat-chip>
-    </mat-chip-list>
+    </div>
+    <div class="toolbar">
+      <mat-slider [disabled]="centerPieceMode != 'map'" thumbLabel tickInterval="1" [min]="sliderConfig.min" [max]="sliderConfig.max" [step]="sliderConfig.step" value={{sliderConfig.max}} (change)="sliderValueChange($event)"></mat-slider>
+      <mat-chip-list aria-label="Visualization-type selection">
+        <mat-chip color="primary" selected (click)="setPieceMode('map')">Map</mat-chip>
+        <mat-chip (click)="setPieceMode('cases')">State Cases</mat-chip>
+        <mat-chip (click)="setPieceMode('age')">Age Demographics</mat-chip>
+        <mat-chip (click)="setPieceMode('race')">Race Demographics</mat-chip>
+        <mat-chip (click)="setPieceMode('sex')">Sex Demographics</mat-chip>
+      </mat-chip-list>
+    </div>
   </div>
 </div>
 <!-- <button (click)="launchCountyDialog('knox')" mat-button>Basic</button> -->

@@ -27,6 +27,12 @@ export class DashboardComponent implements OnInit {
   map: any;
 
   centerPieceMode = "map";
+  
+  activeCases: number = 0;
+  deathCases: number = 0;
+  recoveredCases: number = 0;
+  totalCases: number = 0;
+
   sliderConfig = {
     min: 3,
     max: 7.5,
@@ -166,6 +172,12 @@ export class DashboardComponent implements OnInit {
     this.fyre.getStateCases().then(
       (val) => {
         this.lineCasesChartLabels = val.date_labels;
+  
+        this.totalCases = val.total_cases[val.total_cases.length-1];
+        this.activeCases = val.total_active[val.total_active.length-1];
+        this.deathCases = val.total_death[val.total_death.length-1];
+        this.recoveredCases = val.total_recovered[val.total_recovered.length-1];
+
         this.lineCasesChartData.push({data: val.total_cases, label:"Total Infected Cases"});
         this.lineCasesChartOptions.title.text = 'Total Number of Cases of COVID-19 in Tennessee';
       }
