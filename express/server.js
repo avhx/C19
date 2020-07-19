@@ -308,21 +308,36 @@ function generateTNRaceStruct() {
             }
         }
 
-        const doc = stateCollection.doc('stats');
+        const doc = stateCollection.doc('race_data');
         doc.get().then((_doc) => {
             if(_doc.exists) {
                 // update:
                 if(_payload != undefined) {
-                    doc.update({'race_data': construct_count, 'race_data_percent': construct_percent});
-                } else {
-                    doc.update({'race_data': null, 'race_data_percent': null});
-                }
+                    doc.update({'datasets': construct_count.datasets, 'labels': construct_count.labels, 'options': construct_count.options});
+                } else { doc.update({'datasets': null, 'labels': null, 'options': null});}
             } else {
                 // force set instead:
                 if(_payload != undefined) {
-                    doc.set({'race_data': construct_count, 'race_data_percent': construct_percent});
+                    doc.set({'datasets': construct_count.datasets, 'labels': construct_count.labels, 'options': construct_count.options});
                 } else {
-                    doc.set({'race_data': null, 'race_data_percent': null});
+                    doc.set({'datasets': null, 'labels': null, 'options': null});
+                }
+            }
+        });
+
+        const doc2 = stateCollection.doc('race_data_percent');
+        doc2.get().then((_doc) => {
+            if(_doc.exists) {
+                // update:
+                if(_payload != undefined) {
+                    doc2.update({'datasets': construct_percent.datasets, 'labels': construct_percent.labels, 'options': construct_percent.options});
+                } else { doc2.update({'datasets': null, 'labels': null, 'options': null});}
+            } else {
+                // force set instead:
+                if(_payload != undefined) {
+                    doc2.set({'datasets': construct_percent.datasets, 'labels': construct_percent.labels, 'options': construct_percent.options});
+                } else {
+                    doc2.set({'datasets': null, 'labels': null, 'options': null});
                 }
             }
         });
@@ -526,22 +541,33 @@ function generateTNAgeStruct() {
             }
         }
 
-        const doc = stateCollection.doc('stats');
+        const doc = stateCollection.doc('age_data');
         doc.get().then((_doc) => {
             if(_doc.exists) {
                 // update:
                 if(_payload != undefined) {
-                    doc.update({'age_data': construct_count, 'age_death_data': construct_count_death});
-                } else {
-                    doc.update({'age_data': null, 'age_death_data': null});
-                }
+                    doc.update({'datasets': construct_count.datasets, 'labels': construct_count.labels, 'options': construct_count.options});
+                } else { doc.update({'datasets': null, 'labels': null, 'options': null});}
             } else {
                 // force set instead:
                 if(_payload != undefined) {
-                    doc.set({'age_data': construct_count, 'age_death_data': construct_count_death});
-                } else {
-                    doc.set({'age_data': null, 'age_death_data': null});
-                }
+                    doc.set({'datasets': construct_count.datasets, 'labels': construct_count.labels, 'options': construct_count.options});
+                } else { doc.set({'datasets': null, 'labels': null, 'options': null});}
+            }
+        });
+
+        const doc2 = stateCollection.doc('age_death_data');
+        doc2.get().then((_doc) => {
+            if(_doc.exists) {
+                // update:
+                if(_payload != undefined) {
+                    doc2.update({'datasets': construct_count_death.datasets, 'labels': construct_count_death.labels, 'options': construct_count_death.options});
+                } else { doc2.update({'datasets': null, 'labels': null, 'options': null});}
+            } else {
+                // force set instead:
+                if(_payload != undefined) {
+                    doc2.set({'datasets': construct_count_death.datasets, 'labels': construct_count_death.labels, 'options': construct_count_death.options});
+                } else { doc2.set({'datasets': null, 'labels': null, 'options': null});}
             }
         });
     });
@@ -651,11 +677,105 @@ function generateCaseHistoryStruct() {
     });
 }
 
+function generateConcentrationStruct() {
+    // Apply data to firestore documents:
+    var stateCollection = firestore.collection('tn');
+
+    const monthsWanted = [3,4,5,6,7,-1]
+    countyList.forEach(county => {
+        // stores all the months and stuff for each county:
+        var entryList = [];
+        const countyName = county[0].toLowerCase();
+
+        monthsWanted.forEach(month => {
+            var _date_start = '';
+            var _date_end = '';
+            var _limit = 1;
+
+            if(month == -1) {
+                _date_start = '2020-07-01';
+                _date_end = '2020-07-19';
+                _limit = 20;
+            } else {    
+                _date_start = '2020-0'+month.toString()+'-01';
+                _date_end = '2020-0'+month.toString()+'-30';
+            }
+            const countyID = county[1];
+            const _whereFilter = '(us_county_fips='+countyID+')' + ' AND ((date_stamp>='+_date_start+' AND date_stamp<='+_date_end+'))'
+
+            const data = grabRDSData('tn_doh', 'us_tn_doh_county', query={
+                'collimit': 25,
+                'coloffset': 0,
+                'count': true,
+                'offset': 0,
+                'limit': _limit,
+                'where': _whereFilter
+            });
+
+            data.then(
+                (rdsData) => {
+                    const _rds = rdsData.records;
+                    var firstEntry;
+                    if(month == -1) {
+                        firstEntry = _rds[(_rds.length)-1];
+                    } else {
+                        firstEntry = _rds[0];
+                    }
+                    if(firstEntry == null || firstEntry == undefined) { 
+                        entryList.push(
+                            genColorFromDecimal(0)
+                        );
+                    } else {
+                        entryList.push(
+                            genColorFromDecimal(firstEntry[5])
+                        )
+                    }
+
+                    if(entryList.length == monthsWanted.length) {
+                        const doc = stateCollection.doc('concentration');
+                        console.log(countyName, entryList)
+                        doc.get().then((_doc) => {
+                            if(_doc.exists) {
+                                // update:
+                                doc.update({ [countyName]: entryList});
+                            } else {
+                                // force set instead:
+                                doc.set({[countyName]: entryList});
+                            }
+                        });
+                    }
+                }
+            )
+        });
+    });
+}
+
+// borrowed from: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function genColorFromDecimal(input) {
+    if(input <= 100) {
+        return rgbToHex(255,255,255);
+    } else if(input <= 5000) {
+        return rgbToHex(255, 127, 127)
+    } else {
+        return rgbToHex(201,46,46);
+    }
+}
+
 function initialize() {
     //generateMobilityStruct();
     //generateTNRaceStruct();
     //generateTNAgeStruct();
-    generateCaseHistoryStruct();
+    //generateCaseHistoryStruct();
+    generateConcentrationStruct();
 }
 
 app.listen(8080, function() {
