@@ -4,7 +4,13 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "@rds/sdk": "^1.0.0-alpha.14",
+    "axios": "^0.19.2",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.0.0",
+    "node-cron": "^2.0.3",
+    "request": "^2.88.2"
   },
   "devDependencies": {},
   "scripts": {
