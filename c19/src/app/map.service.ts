@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { GOOGLE_MAP_JS_API_KEY } from './config';
 
 import {} from '@google/maps'; 
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { CountyDialogComponent } from './components/county-dialog/county-dialog.component';
 
 export interface County {
   name: string,
@@ -25,7 +27,7 @@ export class MapService {
   map: any;
   countyMap: any;
   
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private dialog: MatDialog) {
     // console.log("Map Service instantiated!");
     // this.loadAPI = new Promise((resolve) => {
     //   this.loadMapAPI();
@@ -280,6 +282,14 @@ export class MapService {
     this.loadCounties();
   }
 
+  public launchCountyDialog(countyName) {
+    //Launch dialogbox and let it handle firebase interactions
+    let _config = new MatDialogConfig();
+    _config.width = "1000px";
+    _config.data = {name: countyName}
+    const ref = this.dialog.open(CountyDialogComponent, _config);
+  }
+
   public loadCounties() {
     this.countyMap = new Map<google.maps.Polygon, string>();
 
@@ -306,7 +316,8 @@ export class MapService {
         var _self = this
         google.maps.event.addListener(COUNTY_COUNTY, 'click', function() {
           // console.log(this)
-          console.log(_self.countyMap.get(this))
+          const county = _self.countyMap.get(this)
+          _self.launchCountyDialog(county.toLowerCase());
         });
 
         google.maps.event.addListener(COUNTY_COUNTY, 'mouseover', function() {
