@@ -124,6 +124,10 @@
               "devServerTarget": "c19:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
