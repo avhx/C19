@@ -17,4 +17,12 @@
 
 <mat-divider></mat-divider>
 
-<app-news-card *ngIf="default"></app-news-card>
+<h1>Local News</h1>
+<div class="wrapper">
+  <app-news-card *ngFor="let newsData of newsTN | async" [news]="newsData"></app-news-card>
+</div>
+
+<h1>Trending News</h1>
+<div class="wrapper">
+  <app-news-card *ngFor="let newsData of newsTR | async" [news]="newsData"></app-news-card>
+</div>

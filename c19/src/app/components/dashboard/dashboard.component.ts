@@ -7,7 +7,8 @@ import {} from '@google/maps';
 import { CountyDialogComponent } from '../county-dialog/county-dialog.component';
 import { NewsCardComponent, NewsCard } from '../news-card/news-card.component';
 import { ROUTER_CONFIGURATION } from '@angular/router';
-
+import { Observable} from 'rxjs';
+import { map, filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +17,8 @@ import { ROUTER_CONFIGURATION } from '@angular/router';
 })
 
 export class DashboardComponent implements OnInit {
-  newsTN: NewsCard[];
-  default: NewsCard;
+  newsTN: Observable<NewsCard[]>
+  newsTR: Observable<NewsCard[]>
   map: any;
 
   constructor(private mapService: MapService, private dialog: MatDialog, private httpClient: HttpClient) {
@@ -34,7 +35,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.mapService.loadMap("map"); // passes div id="map"
-    this.initNews();
+    this.newsTN = this.getNewsTN();
+    this.newsTR = this.getNewsTR();
+
+    // this.newsTN.subscribe((data) => console.log(data))
 
     // var TENNESSEE_BORDER = [
     //   { lng: -90.36, lat: 34.99 },
@@ -85,32 +89,41 @@ export class DashboardComponent implements OnInit {
     const ref = this.dialog.open(CountyDialogComponent, _config);
   }
 
-  public initNews() {
-    // Reads Tennessee focused news first
-    // INITIALIZE...
-    this.default = {
-      "source": {
-        "id": "0",
-        "name": "0",
-      },
-      "author": "0",
-      "title": "0",
-      "description": "0",
-      "url": "0",
-      "urlToImage": "0",
-      "publishedAt": "0",
-      "content": "0"
-    }
-    this.newsTN = [this.default]
-
-    this.httpClient.get('./assets/news-everything.json').subscribe(data => {
-      for (var i = 0; i < data["articles"].length; i++) {
-        let x = data["articles"][i];
-        this.newsTN.push(x)
-      }
-      console.log(this.newsTN)
+  public getNewsTN(): Observable<NewsCard[]> {
+    return this.httpClient.get('./assets/news-everything.json').pipe(
+      map(res => {
+        return res["articles"].map(item => {
+          return new NewsCard(
+            item.source,
+            item.author,
+            item.title,
+            item.description,
+            item.url,
+            item.urlToImage,
+            item.publishedAt,
+            item.content
+          );
+      });
     })
+    );
+  }
 
-    // Now reads more general news
+  public getNewsTR(): Observable<NewsCard[]> {
+    return this.httpClient.get('./assets/news-top-headlines.json').pipe(
+      map(res => {
+        return res["articles"].map(item => {
+          return new NewsCard(
+            item.source,
+            item.author,
+            item.title,
+            item.description,
+            item.url,
+            item.urlToImage,
+            item.publishedAt,
+            item.content
+          );
+      });
+    })
+    );
   }
 }

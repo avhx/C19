@@ -1,17 +1,19 @@
 import { Component, OnInit, Input, NgModule } from '@angular/core';
 
-export interface NewsCard {
-  "source": {
-    "id": string
-    "name": string
+export class NewsCard {
+  constructor(
+  public source: {
+    id: string,
+    name: string
   },
-  "author": string,
-  "title": string,
-  "description": string,
-  "url": string,
-  "urlToImage": string,
-  "publishedAt": string,
-  "content": string
+  public author: string,
+  public title: string,
+  public description: string,
+  public url: string,
+  public urlToImage: string,
+  public publishedAt: string,
+  public content: string
+  ) {}
 }
 
 @Component({
@@ -24,6 +26,7 @@ export class NewsCardComponent implements OnInit {
   @Input() news: NewsCard;
 
   constructor() {
+    console.log("New component!")
   }
 
   ngOnInit() {
