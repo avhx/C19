@@ -40,6 +40,7 @@ mat-dialog-content {
     mat-card:first-child {
         grid-column-start: 1;
         grid-column-end: 2;
+        margin-left: 0;
     }
 
     mat-card:nth-child(2) {
@@ -50,5 +51,6 @@ mat-dialog-content {
     mat-card:last-child{
         grid-column-start: 3;
         grid-column-end: 4;
+        margin-right: 0;
     }
 }
