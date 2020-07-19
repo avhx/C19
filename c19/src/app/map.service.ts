@@ -23,7 +23,7 @@ export class MapService {
   // loadAPI: Promise<any>
   // isMapLoaded: boolean = false;
   map: any;
-  counties: County[] 
+  countyMap: any; 
   
   constructor(private httpClient: HttpClient) {
     // console.log("Map Service instantiated!");
@@ -55,7 +55,8 @@ export class MapService {
   }
 
   public loadCounties() {
-    this.counties = <County[]> this.counties;
+    this.countyMap = new Map<google.maps.Polygon, string>();
+
     this.httpClient.get('./assets/TNCounties.json').subscribe(data => {
       var COUNTY_INFO = <any[]> data;
 
@@ -73,14 +74,15 @@ export class MapService {
           fillOpacity: 0.35
         });
 
-        var county = {
-          "name": COUNTY_NAME,
-          "concentration": COUNTY_CONCENTRATION,
-          "countyBorder": COUNTY_BORDER,
-          "county": COUNTY_COUNTY
-        }
+        this.countyMap.set(COUNTY_COUNTY, COUNTY_NAME);
 
-        this.counties.push(county)
+        // Add in event listeners
+        var _self = this
+        google.maps.event.addListener(COUNTY_COUNTY, 'click', function() {
+          // console.log(this)
+          console.log(_self.countyMap.get(this))
+        });
+
         COUNTY_COUNTY.setMap(this.map) // preloads county
       }
     })
