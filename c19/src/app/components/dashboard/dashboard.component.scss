@@ -24,24 +24,28 @@
   }
 }
 
-#map, #cases, #age, #sex {
+#map, #cases, #age, #race, #sex {
   margin: 2% auto;
   width: 60%;
   height: 75%;
 }
 
-#map.cases, #map.age, #map.sex {
+#map.cases, #map.age, #map.sex, #map.race {
   display: none;
 }
 
-#cases.map, #cases.age,#cases.sex {
+#cases.map, #cases.age,#cases.sex, #cases.race {
   display: none;
 }
 
-#age.map, #age.cases,#age.sex {
+#age.map, #age.cases,#age.sex, #age.race {
   display: none;
 }
 
-#sex.map, #sex.cases,#sex.age {
+#sex.map, #sex.cases,#sex.age, #sex.race {
+  display: none;
+}
+
+#race.map, #race.cases,#race.age, #race.sex {
   display: none;
 }
