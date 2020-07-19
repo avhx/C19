@@ -3,6 +3,7 @@
     <mat-card-title>{{news.title}}</mat-card-title>
     <mat-card-subtitle>{{news.source['name']}}</mat-card-subtitle>
   </mat-card-header>
+  
   <img mat-card-image src="{{news.urlToImage}}">
   <mat-card-content>
     <span>By: {{news.author}}</span>
@@ -11,6 +12,6 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <a mat-raised-button href="{{news.url}}">Visit</a>
+    <a mat-icon-button color="primary" href="{{news.url}}" target="_blank"><mat-icon>open_in_new</mat-icon></a>
   </mat-card-actions>
 </mat-card>

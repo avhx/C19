@@ -169,6 +169,10 @@ export class DashboardComponent implements OnInit {
     // border.setMap(this.map);
 
     /*Load graphs here:*/
+    this.fyre.getStateCasesMeta().then((val) => {
+      
+    })
+
     this.fyre.getStateCases().then(
       (val) => {
         this.lineCasesChartLabels = val.date_labels;
