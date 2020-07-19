@@ -525,7 +525,7 @@ function generateTNAgeStruct() {
                 }
             }
         }
-        
+
         const doc = stateCollection.doc('stats');
         doc.get().then((_doc) => {
             if(_doc.exists) {
@@ -547,14 +547,115 @@ function generateTNAgeStruct() {
     });
 }
 
-function generateCaseConcentration() {
+function generateCaseHistoryStruct() {
+    // Apply data to firestore documents:
+    var countyCollection = firestore.collection('county');
 
+    countyList.forEach(county => {
+        // Reference county code and call up RDS:
+        const countyID = county[1];
+        const data = grabRDSData('tn_doh', 'us_tn_doh_county', query={
+            'collimit': 25,
+            'coloffset': 0,
+            'count': true,
+            'offset': 0,
+            'limit': 200,
+            'where': '(us_county_fips='+countyID+')'
+        });
+
+        data.then(
+            (rdsData) => {
+                const _rds = rdsData.records;
+                var _labels = {};
+                var _total_cases = [];
+                var _new_cases = [];
+                var _total_confirmed = [];
+                var _tested = [];
+                var _tested_new = [];
+                var _total_active = [];
+                var _new_active = [];
+                var _total_death = [];
+                var _new_death = [];
+
+                _rds.forEach(rds => {
+                    const date = rds[0];
+                    var total_cases =  rds[3];
+                    if(total_cases == null) {total_cases = 0;}
+                    var new_cases = rds[4];
+                    if(new_cases == null) {new_cases = 0;}
+                    var total_confirmed = rds[5];
+                    if(total_confirmed == null) {total_confirmed = 0;}
+                    var tested = rds[19];
+                    if(tested == null) {tested = 0;}
+                    var tested_new = rds[20];
+                    if(tested_new == null) {tested_new = 0;}
+                    var total_active= rds[9];
+                    if(total_active == null) {total_active = 0;}
+                    var new_active = rds[11];
+                    if(new_active == null) {new_active = 0;}
+                    var total_death = rds[13];
+                    if(total_death == null) {total_death = 0;}
+                    var new_death = rds[14];
+                    if(new_death == null) {new_death = 0;}
+                    
+                    if(_labels[date] == undefined) {
+                        _labels[date] = -1;
+                    }
+                    _total_cases.push(total_cases);
+                    _new_cases.push(new_cases);
+                    _total_confirmed.push(total_confirmed);
+                    _tested.push(tested);
+                    _tested_new.push(tested_new);
+                    _total_active.push(total_active);
+                    _new_active.push(new_active);
+                    _total_death.push(total_death);
+                    _new_death.push(new_death);
+                });
+
+                const new_label = Object.keys(_labels);
+
+                const doc = countyCollection.doc(county[0].toLowerCase());
+                doc.get().then((_doc) => {
+                    if(_doc.exists) {
+                        // update:
+                        doc.update({
+                            'date_labels': new_label,
+                            'total_cases': _total_cases,
+                            'new_cases': _new_cases,
+                            'total_confirmed': _total_confirmed,
+                            'tested': _tested,
+                            'tested_new': _tested_new,
+                            'total_active': _total_active,
+                            'new_active': _new_active,
+                            'total_death': _total_death,
+                            'new_death': _new_death
+                        });
+                    } else {
+                        // force set instead:
+                        doc.set({
+                            'date_labels': new_label,
+                            'total_cases': _total_cases,
+                            'new_cases': _new_cases,
+                            'total_confirmed': _total_confirmed,
+                            'tested': _tested,
+                            'tested_new': _tested_new,
+                            'total_active': _total_active,
+                            'new_active': _new_active,
+                            'total_death': _total_death,
+                            'new_death': _new_death
+                        });
+                    }
+                });
+            }
+        )
+    });
 }
 
 function initialize() {
     //generateMobilityStruct();
     //generateTNRaceStruct();
-    generateTNAgeStruct();
+    //generateTNAgeStruct();
+    generateCaseHistoryStruct();
 }
 
 app.listen(8080, function() {
