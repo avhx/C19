@@ -33,8 +33,8 @@ admin.initializeApp({
 
 var firestore = admin.firestore();
 
-cron.schedule("0 * * * *", function() {
-    console.log('hit');
+cron.schedule("0 0 * * *", function() {
+    console.log('Running all daily cron jobs...');
 });
 
 var app = express()
@@ -336,6 +336,156 @@ function generateTNRaceStruct() {
                 // force set instead:
                 if(_payload != undefined) {
                     doc2.set({'datasets': construct_percent.datasets, 'labels': construct_percent.labels, 'options': construct_percent.options});
+                } else {
+                    doc2.set({'datasets': null, 'labels': null, 'options': null});
+                }
+            }
+        });
+    });
+}
+
+function generateTNSexStruct() {
+     // data = {labels: [X AXIS STUFF], datasets: [{data: [Y AXIS STUFF]}, data2: [Y AXIS STUFF]], options: {RANDOM SHIT}}
+    // Apply data to firestore documents:
+    var stateCollection = firestore.collection('tn');
+    const data = grabRDSData('tn_doh', 'us_tn_doh_sex', query={
+        'collimit': 25,
+        'coloffset': 0,
+        'count': true,
+        'offset': 0,
+        'limit': 600,
+    });
+
+    data.then((rdsData) => {
+        // Manipulate rdsData:
+        var _payload = rdsData.records;
+        // total counts:
+        var _labels = {} //treat as set
+        var payloadTotalCounts = {} // dictionary: key -> race val -> [1000,1020,...]
+        var payloadTotalDeaths = {} // dictionary: key -> race val -> [0.1,0.2,...]
+
+        for (let i = 0; i < _payload.length; i++) {
+            const date = _payload[i][0];
+            let sex = _payload[i][1];
+
+            if(sex == 1) {
+                sex = 'male';
+            } else if(sex == 2) {
+                sex = 'female';
+            } else {
+                sex = 'pending';
+            }
+
+            const count = _payload[i][2];
+            const deathCount = _payload[i][4];
+            
+            if(_labels[date] == undefined) {
+                _labels[date] = -1;
+            }
+
+            if(payloadTotalCounts[sex] == undefined) {
+                payloadTotalCounts[sex] = [count];
+            } else {
+                payloadTotalCounts[sex].push(count);
+            }
+
+            if(payloadTotalDeaths[sex] == undefined) {
+                payloadTotalDeaths[sex] = [deathCount];
+            } else {
+                payloadTotalDeaths[sex].push(deathCount);
+            }
+        }
+
+        const true_labels = Object.keys(_labels);
+
+        var construct_count = {
+            labels: true_labels,
+            datasets: [
+                {
+                    data: payloadTotalCounts['male'],
+                    label: 'Male',
+                    borderColor: "#3e95cd",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts['female'],
+                    label: 'Female',
+                    borderColor: "#8e5ea2",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts['pending'],
+                    label: 'Pending',
+                    borderColor: "#3cba9f",
+                    fill: false
+                }
+            ],
+            options: {
+                title: {
+                    display: true,
+                    text: 'Tennessee COVID-19 Infection Count Sex Demographic Breakdown'
+                }
+            }
+        }
+
+        var construct_death = {
+            labels: true_labels,
+            datasets: [
+                {
+                    data: payloadTotalDeaths['male'],
+                    label: 'Male',
+                    borderColor: "#3e95cd",
+                    fill: false
+                },
+                {
+                    data: payloadTotalDeaths['female'],
+                    label: 'Female',
+                    borderColor: "#8e5ea2",
+                    fill: false
+                },
+                {
+                    data: payloadTotalDeaths['pending'],
+                    label: 'Pending',
+                    borderColor: "#3cba9f",
+                    fill: false
+                }
+            ],
+            options: {
+                title: {
+                    display: true,
+                    text: 'Tennessee COVID-19 Death Count Sex Demographic Breakdown'
+                }
+            }
+        }
+
+        const doc = stateCollection.doc('sex_data');
+        doc.get().then((_doc) => {
+            if(_doc.exists) {
+                // update:
+                if(_payload != undefined) {
+                    doc.update({'datasets': construct_count.datasets, 'labels': construct_count.labels, 'options': construct_count.options});
+                } else { doc.update({'datasets': null, 'labels': null, 'options': null});}
+            } else {
+                // force set instead:
+                if(_payload != undefined) {
+                    doc.set({'datasets': construct_count.datasets, 'labels': construct_count.labels, 'options': construct_count.options});
+                } else {
+                    doc.set({'datasets': null, 'labels': null, 'options': null});
+                }
+            }
+        });
+
+        const doc2 = stateCollection.doc('sex_data_death');
+        doc2.get().then((_doc) => {
+            if(_doc.exists) {
+                // update:
+                if(_payload != undefined) {
+                    doc2.update({'datasets': construct_death.datasets, 'labels': construct_death.labels, 'options': construct_death.options});
+                } else { doc2.update({'datasets': null, 'labels': null, 'options': null});}
+            } else {
+                // force set instead:
+                if(_payload != undefined) {
+                    doc2.set({'datasets': construct_death.datasets, 'labels': construct_death.labels, 'options': construct_death.options});
                 } else {
                     doc2.set({'datasets': null, 'labels': null, 'options': null});
                 }
@@ -770,12 +920,21 @@ function genColorFromDecimal(input) {
     }
 }
 
+function genStateGeneralInfo() {
+    return 0;
+}
+
+function genCountyAgeStruct() {
+    return 0;
+}
+
 function initialize() {
     //generateMobilityStruct();
     //generateTNRaceStruct();
     //generateTNAgeStruct();
     //generateCaseHistoryStruct();
-    generateConcentrationStruct();
+    //generateConcentrationStruct();
+    generateTNSexStruct();
 }
 
 app.listen(8080, function() {
