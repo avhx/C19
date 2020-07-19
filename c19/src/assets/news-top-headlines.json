@@ -1,0 +1,266 @@
+{
+    "status": "ok",
+    "totalResults": 456537,
+    "articles": [
+        {
+            "source": {
+                "id": null,
+                "name": "Lifehacker.com"
+            },
+            "author": "Beth Skwarecki on Vitals, shared by Beth Skwarecki to Lifehacker",
+            "title": "Can You Catch COVID-19 Twice?",
+            "description": "You’re probably sick of hearing about the coronavirus, and it’s only existed on this earth for seven months or so—as far as we know. Can people get it twice? A recent case reported in Vox suggests the answer may be yes, but there are too many unknowns to conf…",
+            "url": "https://vitals.lifehacker.com/can-you-catch-covid-19-twice-1844364195",
+            "urlToImage": "https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/nsqdqqwspdasik9ftguu.jpg",
+            "publishedAt": "2020-07-13T20:00:00Z",
+            "content": "Youre probably sick of hearing about the coronavirus, and its only existed on this earth for seven months or soas far as we know. Can people get it twice? A recent case reported in Vox suggests the a… [+3299 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Lifehacker.com"
+            },
+            "author": "Joel Kahn on Vitals, shared by Joel Kahn to Lifehacker",
+            "title": "How to Prevent COVID-19 While Still Enjoying Your Summer",
+            "description": "Do you remember earlier this year, when people were sure that the pandemic would end when the weather warmed up?Read more...",
+            "url": "https://vitals.lifehacker.com/how-to-prevent-covid-19-while-still-enjoying-your-summe-1844118424",
+            "urlToImage": "https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/fyndwb9h5ofbdcjo9dyz.jpg",
+            "publishedAt": "2020-06-22T18:00:00Z",
+            "content": "Do you remember earlier this year, when people were sure that the pandemic would end when the weather warmed up?\r\nWell, funny story...\r\nWe are deep into June and the coronavirus is as strong as ever,… [+1311 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Lifehacker.com"
+            },
+            "author": "David Murphy",
+            "title": "Don't Trust Your Hotel's COVID-19 Cleaning Policy",
+            "description": "Hotels are gross. There, I said it. It’s something we often forget about, especially if we’re staying at a place that’s a bit classier than the Schitt’s Creek Motel, but anywhere you sleep where 1) other people have slept and 2) someone else has to clean is i…",
+            "url": "https://lifehacker.com/dont-trust-your-hotels-covid-19-cleaning-policy-1844247370",
+            "urlToImage": "https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/iwltitvqc5sdzox8ixak.jpg",
+            "publishedAt": "2020-07-02T19:00:00Z",
+            "content": "Hotels are gross. There, I said it. Its something we often forget about, especially if were staying at a place thats a bit classier than the Schitts Creek Motel, but anywhere you sleep where 1) other… [+3593 chars]"
+        },
+        {
+            "source": {
+                "id": "engadget",
+                "name": "Engadget"
+            },
+            "author": "Daniel Cooper",
+            "title": "COVID-19 killed the era of 'big' flying",
+            "description": "COVID-19 has shattered the aviation industry, with nations closing their borders and banning all but essential travel. A world where people could hop from country to country is now one where empty planes travel to maintain contractual obligations. Major carri…",
+            "url": "https://www.engadget.com/covid-19-airplane-design-140024672.html",
+            "urlToImage": "https://o.aolcdn.com/images/dims?resize=1200%2C630&crop=1200%2C630%2C0%2C0&quality=95&image_uri=https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-images%2F2020-06%2Fc633cd00-b5f5-11ea-bfb5-cb84de5e938c&client=amp-blogside-v2&signature=21681d54942a68d62c3b830ffb7ebd6ad216070a",
+            "publishedAt": "2020-06-25T14:30:24Z",
+            "content": "Airbus is, of course, one of the world’s two major aircraft manufacturers, the other being the US-based Boeing. But, even now, it’s not clear that any quantity of cash will be enough to see flying re… [+7239 chars]"
+        },
+        {
+            "source": {
+                "id": "engadget",
+                "name": "Engadget"
+            },
+            "author": "Christine Fisher",
+            "title": "Google News will direct users to local COVID-19 info",
+            "description": "Since the pandemic began, Google has been working to surface relevant, reliable information. Now, with rates of the virus and state policies varying so widely across the country, Google wants to provide users with more local information. Today, it announced t…",
+            "url": "https://www.engadget.com/google-news-covid-19-local-news-publishers-144525941.html",
+            "urlToImage": "https://o.aolcdn.com/images/dims?resize=1200%2C630&crop=1200%2C630%2C0%2C0&quality=95&image_uri=https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-images%2F2020-06%2F5ea25d40-ba15-11ea-bf1d-6bcdacdd3afd&client=amp-blogside-v2&signature=b22f8949f33f332320397e0a8d568030f830ed85",
+            "publishedAt": "2020-06-29T14:45:25Z",
+            "content": "Google is making a few other useful changes. When people look for coronavirus info in Search, the news carousel will now include tweets from local officials and health authorities. This feature is av… [+1164 chars]"
+        },
+        {
+            "source": {
+                "id": "engadget",
+                "name": "Engadget"
+            },
+            "author": "Marc DeAngelis",
+            "title": "Singapore offers Bluetooth COVID-19 trackers to smartphone-less seniors",
+            "description": "It’s not a given that everyone has a smartphone. That’s usually all fine and good, but countries around the world are hoping to use the devices to track contact between those with COVID-19 and the rest of the public. To bring that functionality to seniors, th…",
+            "url": "https://www.engadget.com/singapore-covid-19-bluetooth-tracker-163004157.html",
+            "urlToImage": "https://o.aolcdn.com/images/dims?resize=1200%2C630&crop=1200%2C630%2C0%2C0&quality=95&image_uri=https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-uploaded-images%2F2020-06%2F78086f80-ba20-11ea-a1f3-18ee768dab96&client=amp-blogside-v2&signature=8115ebd2d09ac0126a8316755ce0e823d2101363",
+            "publishedAt": "2020-06-29T16:30:04Z",
+            "content": "It’s not a given that everyone has a smartphone. That’s usually all fine and good, but countries around the world are hoping to use the devices to track contact between those with COVID-19 and the re… [+797 chars]"
+        },
+        {
+            "source": {
+                "id": "techcrunch",
+                "name": "TechCrunch"
+            },
+            "author": "Walter Thompson",
+            "title": "Ideas for a post-COVID-19 workplace",
+            "description": "Now is the time to consider bold and creative ideas that not only enable remote working, but that reimagine the workplace as driver of culture, ideas, and innovation",
+            "url": "http://techcrunch.com/2020/06/22/ideas-for-a-post-covid-19-workplace/",
+            "urlToImage": "https://techcrunch.com/wp-content/uploads/2020/06/Work_area_at_the_Johnson_Wax_Building_headquarters_of_the_S.C._Johnson_and_Son_Co._Racine_Wisconsin_LCCN2011633764.tif.jpg?w=520",
+            "publishedAt": "2020-06-22T14:25:51Z",
+            "content": "As a workplace strategist, I am constantly asked, What is the workplace of the future?\r\nIts a question I dread, because a subtext typically lingers underneath, e.g., I hate the open office, All this … [+2141 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Lifehacker.com"
+            },
+            "author": "Beth Skwarecki on Vitals, shared by Beth Skwarecki to Lifehacker",
+            "title": "Your Visual Reminder That Covid Is Way More Than the Flu",
+            "description": "People die of the flu sometimes. People die of COVID-19 sometimes. People die of suicide and drug overdoses and heart disease and a lot of other things. So if there haven’t been many COVID-19 deaths in your community yet, maybe you’ve convinced yourself that …",
+            "url": "https://vitals.lifehacker.com/your-visual-reminder-that-covid-is-way-more-than-the-fl-1844235054",
+            "urlToImage": "https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/jxtbugebupd2bowmctdv.png",
+            "publishedAt": "2020-07-01T20:00:00Z",
+            "content": "People die of the flu sometimes. People die of COVID-19 sometimes. People die of suicide and drug overdoses and heart disease and a lot of other things. So if there havent been many COVID-19 deaths i… [+1357 chars]"
+        },
+        {
+            "source": {
+                "id": "wired",
+                "name": "Wired"
+            },
+            "author": "Laura Mallonee",
+            "title": "Inside the Milan Hotel That Housed Covid-19 Patients",
+            "description": "Photographer Alberto Bernasconi donned full protective gear to capture the scene of \"guests\" isolating in the four-star hotel.",
+            "url": "https://www.wired.com/story/inside-the-milan-hotel-that-housed-covid-19-patients/",
+            "urlToImage": "https://media.wired.com/photos/5f0b16b75de658deff103579/191:100/w_1280,c_limit/photo_hotel-michelangelo_1.jpg",
+            "publishedAt": "2020-07-12T14:13:22Z",
+            "content": "Hotel Michelangelo is a fine place to stay. Located in central Milan, it boasts four stars and close proximity to tourist attractions. Not that those things matter much to its recent guests: Theyre f… [+1894 chars]"
+        },
+        {
+            "source": {
+                "id": "wired",
+                "name": "Wired"
+            },
+            "author": "Sara Harrison",
+            "title": "How to Read Covid-19 Research (and Actually Understand It)",
+            "description": "Confused? Surprised? Wondering where the good parts are? Here are a few tips on reading scientific papers to help those of us following along at home.",
+            "url": "https://www.wired.com/story/how-to-read-covid-19-research-and-actually-understand-it/",
+            "urlToImage": "https://media.wired.com/photos/5f050d48d916dc1ac6a5a754/191:100/w_1280,c_limit/Science_research_143071446.jpg",
+            "publishedAt": "2020-07-08T12:00:00Z",
+            "content": "Sometimes scientists dont want to wait for the lengthy peer review process to conclude before they publish their research, especially during this pandemic, when their information could help other sci… [+3935 chars]"
+        },
+        {
+            "source": {
+                "id": "wired",
+                "name": "Wired"
+            },
+            "author": "Lily Hay Newman",
+            "title": "Schools Already Struggled With Cybersecurity. Then Came Covid-19",
+            "description": "A lack of dedicated funding and resources made it hard to keep data secure—and that was before classes moved almost entirely online.",
+            "url": "https://www.wired.com/story/schools-already-struggled-cybersecurity-then-came-covid-19/",
+            "urlToImage": "https://media.wired.com/photos/5efa5c0753f9776c9a53b61a/191:100/w_1280,c_limit/Security_remotelearning_1175849126.jpg",
+            "publishedAt": "2020-07-01T11:00:00Z",
+            "content": "Another issue Henry found was in the way Polk County used Microsoft SharePoint platform, a collaboration and storage tool, to manage data. He noticed that students and teachers were lumped together i… [+3761 chars]"
+        },
+        {
+            "source": {
+                "id": "wired",
+                "name": "Wired"
+            },
+            "author": "Gregory Barber",
+            "title": "Colleges Prepare to Test Thousands of Students for Covid-19",
+            "description": "As campuses reopen, the logistics of preventing an outbreak are posing thorny questions: Who to test? How often? And will students buy in?",
+            "url": "https://www.wired.com/story/colleges-prepare-to-test-thousands-of-students-for-covid-19/",
+            "urlToImage": "https://media.wired.com/photos/5f10f385d91ebbe631df2d9c/191:100/w_1280,c_limit/Science_collegetesting_boston_1207190430.jpg",
+            "publishedAt": "2020-07-17T11:00:00Z",
+            "content": "In April, just a few weeks after the spring semester pivoted unceremoniously to digital, Catherine Klapperich, a biomedical engineering professor at Boston University, was thinking about the fall. Th… [+4801 chars]"
+        },
+        {
+            "source": {
+                "id": "wired",
+                "name": "Wired"
+            },
+            "author": "Matt Burgess, WIRED UK",
+            "title": "Russia's Latest Hacking Target: Covid-19 Vaccine Projects",
+            "description": "Officials in the three countries believe a state-linked group is trying to steal intellectual property and information about potential vaccine candidates.",
+            "url": "https://www.wired.com/story/russias-latest-hacking-target-covid-19-vaccine-projects/",
+            "urlToImage": "https://media.wired.com/photos/5f10ba2ca7abf1b32a154618/191:100/w_1280,c_limit/Security_WIREDUK_1212829226.jpg",
+            "publishedAt": "2020-07-17T11:00:00Z",
+            "content": "The UK, US, and Canada have discovered hackers working on behalf of the Russian state launching attacks against coronavirus vaccine development projects. \r\nThis story originally appeared on WIRED UK.… [+4403 chars]"
+        },
+        {
+            "source": {
+                "id": "techcrunch",
+                "name": "TechCrunch"
+            },
+            "author": "Brian Heater",
+            "title": "As COVID-19 surges, 3D printing is having a moment",
+            "description": "COVID-19 will be remembered for many things — most undoubtedly negative. There are, however, some silver linings among the horrors of the deadliest pandemic in recent memory. Among them, if the sort of human ingenuity that shines whenever the world is faced w…",
+            "url": "http://techcrunch.com/2020/07/06/as-covid-19-surges-3d-printing-is-having-a-moment/",
+            "urlToImage": "https://techcrunch.com/wp-content/uploads/2020/07/GettyImages-1208498831.jpg?w=600",
+            "publishedAt": "2020-07-06T20:01:54Z",
+            "content": "COVID-19 will be remembered for many things most undoubtedly negative. There are, however, some silver linings among the horrors of the deadliest pandemic in recent memory. Among them, if the sort of… [+1635 chars]"
+        },
+        {
+            "source": {
+                "id": "techcrunch",
+                "name": "TechCrunch"
+            },
+            "author": "Alex Wilhelm",
+            "title": "COVID-19 fails to stop the march of the unicorns",
+            "description": "We’re digging into Q2 2020 venture capital results this week. Today we are exploring U.S.-specific results after taking a broader perspective yesterday. As with every quarter, our goal is to understand how strong, or not, the domestic and global VC markets ar…",
+            "url": "http://techcrunch.com/2020/07/14/covid-19-fails-to-stop-the-march-of-the-unicorns/",
+            "urlToImage": "https://techcrunch.com/wp-content/uploads/2020/05/NSussman_Techcrunch_Exchange_v3-BLU.jpg?w=533",
+            "publishedAt": "2020-07-14T15:01:15Z",
+            "content": "We’re digging into Q2 2020 venture capital results this week.\r\nToday we are exploring U.S.-specific results after taking a broader perspective yesterday. As with every quarter, our goal is to underst… [+1174 chars]"
+        },
+        {
+            "source": {
+                "id": "techcrunch",
+                "name": "TechCrunch"
+            },
+            "author": "Natasha Mascarenhas",
+            "title": "Extension rounds help some startups play offense during COVID-19",
+            "description": "The venture capital world is constantly changing, and its evolution can sometimes flip pieces of conventional wisdom on their heads. For example, a recent flurry of extension rounds from Silicon Valley’s hottest startups like Stripe and Robinhood seem to sign…",
+            "url": "http://techcrunch.com/2020/07/17/extension-rounds-help-some-startups-play-offense-during-covid-19/",
+            "urlToImage": "https://techcrunch.com/wp-content/uploads/2019/08/hands-signing-check.png?w=753",
+            "publishedAt": "2020-07-17T17:07:03Z",
+            "content": "The venture capital world is constantly changing, and its evolution can sometimes flip pieces of conventional wisdom on their heads. For example, a recent flurry of extension rounds from Silicon Vall… [+1657 chars]"
+        },
+        {
+            "source": {
+                "id": "techcrunch",
+                "name": "TechCrunch"
+            },
+            "author": "Walter Thompson",
+            "title": "Demand for fertility services persists despite COVID-19 shutdowns",
+            "description": "Plenty of investments are made during a recession, and it’s no secret that smart investors will put money into recession-proof markets.",
+            "url": "http://techcrunch.com/2020/06/24/demand-for-fertility-services-persists-despite-covid-19-shutdowns/",
+            "urlToImage": "https://techcrunch.com/wp-content/uploads/2020/06/GettyImages-999302960.jpg?w=600",
+            "publishedAt": "2020-06-24T20:40:14Z",
+            "content": "In 2019, the global fertility services industry was estimated to be worth $14.8 billion with demand driven by the significant growth in the median age of first-time mothers, according to a Research &… [+1688 chars]"
+        },
+        {
+            "source": {
+                "id": "techcrunch",
+                "name": "TechCrunch"
+            },
+            "author": "Brian Heater",
+            "title": "Amazon warehouse workers strike in Germany over COVID-19 conditions",
+            "description": "Amazon warehouse workers in Germany are striking for 48 hours this week, to protest conditions that have led to COVID-19 infections among fellow employees. Strikes began today at six warehouses and are set to continue through end of day Tuesday. The company h…",
+            "url": "http://techcrunch.com/2020/06/29/amazon-warehouse-workers-strike-in-germany-over-covid-19-conditions/",
+            "urlToImage": "https://techcrunch.com/wp-content/uploads/2019/09/GettyImages-1161005963.jpg?w=599",
+            "publishedAt": "2020-06-29T14:09:37Z",
+            "content": "Amazon warehouse workers in Germany are striking for 48 hours this week, to protest conditions that have led to COVID-19 infections among fellow employees. Strikes began today at six warehouses and a… [+1776 chars]"
+        },
+        {
+            "source": {
+                "id": "techcrunch",
+                "name": "TechCrunch"
+            },
+            "author": "Brian Heater",
+            "title": "PC shipments rebound slightly following COVID-19-fueled decline",
+            "description": "PC shipments had a rough first quarter for all of the same reasons as everything that isn’t a Clorox wipe or N95 mask. People just weren’t ready to drop a ton of money on a new device. The impact of COVID-19 was lessened slightly by IT departments and individ…",
+            "url": "http://techcrunch.com/2020/07/09/pc-shipments-rebound-slightly-following-covid-19-fueled-decline/",
+            "urlToImage": "https://techcrunch.com/wp-content/uploads/2019/07/GettyImages-1145998933.jpg?w=599",
+            "publishedAt": "2020-07-09T21:09:50Z",
+            "content": "PC shipments had a rough first quarter for all of the same reasons as everything that isnt a Clorox wipe or N95 mask. People just werent ready to drop a ton of money on a new device. The impact of CO… [+1429 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Gizmodo.com"
+            },
+            "author": "Ed Cara",
+            "title": "What’s the Evidence for Covid-19 Reinfection?",
+            "description": "A small bright spot in the coronavirus disaster has been that people who become sick appear to have at least temporary immunity to the virus. But over the weekend, a Vox article written by a primary care doctor in Washington D.C. laid out an imminent and frig…",
+            "url": "https://gizmodo.com/what-s-the-evidence-for-covid-19-reinfection-1844364577",
+            "urlToImage": "https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/qxo2ab0vyq08amozxc4l.jpg",
+            "publishedAt": "2020-07-13T19:52:00Z",
+            "content": "A small bright spot in the coronavirus disaster has been that people who become sick appear to have at least temporary immunity to the virus. But over the weekend, a Vox article written by a primary … [+6141 chars]"
+        }
+    ]
+}
