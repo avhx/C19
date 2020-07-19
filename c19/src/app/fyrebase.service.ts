@@ -66,6 +66,19 @@ export class FyrebaseService {
     })
   }
 
+  public getStateCasesMeta(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const currDoc = this.firestore.doc('/tn/general_cases_meta');
+      currDoc.get().subscribe(
+        (val) => {
+          resolve(val.data())
+        }, (err) => {
+          reject(err);
+        }
+      )
+    })
+  }
+
   public _getState(url:string): Promise<any> {
     return new Promise((resolve, reject) => {
       const currDoc = this.firestore.doc(url);
