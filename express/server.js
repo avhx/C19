@@ -2,29 +2,9 @@ var express = require('express');
 var admin = require("firebase-admin");
 var cron = require("node-cron");
 const https = require("https");
-/*
-var RdsServer = require('@rds/sdk/dist/lib/rds-server').RdsServer;
-var RdsCatalog = require('@rds/sdk/dist/lib/rds-catalog').RdsCatalog;
-var RdsDataProduct = require('@rds/sdk/dist/lib/rds-data-product').RdsDataProduct;
-*/
 
 var serviceAccount = require("./knoxcov.json");
 var countyList = require("./counties.json").county;
-
-/*
-import { RdsServer, RdsCatalog, RdsDataProduct, HttpResponse } from '@rds/sdk';
-
-const server = new RdsServer('https://knxhx.richdataservices.com/rds');
-const catalog = new RdsCatalog(server, 'mobility');
-const dataProduct = new RdsDataProduct(catalog, 'google_mobility_us_county');
-
-dataProduct.select()
-	.then((res) => {
-           console.log(res);
-	}, (err) => {
-        console.log(err);
-    });
-*/
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -921,11 +901,225 @@ function genColorFromDecimal(input) {
 }
 
 function genStateGeneralInfo() {
-    return 0;
+    // IF YOU NEED TO GET OTHER DATA FIELDS, MAKE SURE TO EDIT THE INDEXES!!!!
+    
+    var stateCollection = firestore.collection('tn');
+
+    const data = grabRDSData('tn_doh', 'us_tn_doh_state', query={
+        'collimit': 25,
+        'coloffset': 0,
+        'count': true,
+        'offset': 0,
+        'limit': 200,
+    });
+
+    data.then(
+        (rdsData) => {
+            const _rds = rdsData.records;
+            var _labels = {};
+            var _total_cases = [];
+            // var _new_cases = [];
+            //var _total_confirmed = [];
+            // var _tested = [];
+            // var _tested_new = [];
+            // var _total_active = [];
+            // var _new_active = [];
+            // var _total_death = [];
+            // var _new_death = [];
+
+            _rds.forEach(rds => {
+                const date = rds[0];
+                var total_cases =  rds[1];
+                if(total_cases == null) {total_cases = 0;}
+                // var new_cases = rds[4];
+                // if(new_cases == null) {new_cases = 0;}
+                // var total_confirmed = rds[5];
+                // if(total_confirmed == null) {total_confirmed = 0;}
+                // var tested = rds[19];
+                // if(tested == null) {tested = 0;}
+                // var tested_new = rds[20];
+                // if(tested_new == null) {tested_new = 0;}
+                // var total_active= rds[9];
+                // if(total_active == null) {total_active = 0;}
+                // var new_active = rds[11];
+                // if(new_active == null) {new_active = 0;}
+                // var total_death = rds[13];
+                // if(total_death == null) {total_death = 0;}
+                // var new_death = rds[14];
+                // if(new_death == null) {new_death = 0;}
+                
+                if(_labels[date] == undefined) {
+                    _labels[date] = -1;
+                }
+                _total_cases.push(total_cases);
+                // _new_cases.push(new_cases);
+                //_total_confirmed.push(total_confirmed);
+                // _tested.push(tested);
+                // _tested_new.push(tested_new);
+                // _total_active.push(total_active);
+                // _new_active.push(new_active);
+                // _total_death.push(total_death);
+                // _new_death.push(new_death);
+            });
+
+            const new_label = Object.keys(_labels);
+
+            const doc = stateCollection.doc('general_cases');
+            doc.get().then((_doc) => {
+                if(_doc.exists) {
+                    // update:
+                    doc.update({
+                        'date_labels': new_label,
+                        'total_cases': _total_cases,
+                    });
+                } else {
+                    // force set instead:
+                    doc.set({
+                        'date_labels': new_label,
+                        'total_cases': _total_cases,
+                    });
+                }
+            });
+        }
+    )
 }
 
 function genCountyAgeStruct() {
-    return 0;
+    // Knoxville only call:
+    const tmpCountyList = ['Knox', 47093]
+    const countyName = tmpCountyList[0];
+    const countyID = tmpCountyList[1];
+
+    var countyCollection = firestore.collection('county');
+
+    const data = grabRDSData('kchd', 'us_tn_kchd_age', query={
+        'collimit': 25,
+        'coloffset': 0,
+        'count': true,
+        'offset': 0,
+        'limit': 495,
+    });
+
+    data.then((rdsData) => {
+        // Manipulate rdsData:
+        var _payload = rdsData.records;
+
+        // total counts:
+        var _labels = {} //treat as set
+        var payloadTotalCounts = {} // dictionary: key -> race val -> [1000,1020,...]
+
+        /*
+        payloadTotalCounts[99] = [0,0]
+        payloadDeathCounts[99] = [0,0]
+        */
+
+        for (let i = 0; i < _payload.length; i++) {
+            const date = _payload[i][0];
+            const age = Number(_payload[i][1]);
+            const count = _payload[i][2];
+            
+            if(_labels[date] == undefined) {
+                _labels[date] = -1;
+            }
+
+            if(payloadTotalCounts[age] == undefined) {
+                payloadTotalCounts[age] = [count];
+                // if(age == 81 && _payload[i+1][2] != 99 && _payload[i+1] != undefined) {payloadTotalCounts[99].push(0)}
+            } else {
+                payloadTotalCounts[age].push(count);
+                // if(age == 81 && _payload[i+1][2] != 99 && _payload[i+1] != undefined) {payloadTotalCounts[99].push(0)}
+            }
+        }
+
+        const true_labels = Object.keys(_labels);
+
+        var construct_count = {
+            labels: true_labels,
+            datasets: [
+                {
+                    data: payloadTotalCounts[00],
+                    label: '0-10',
+                    borderColor: "#3e95cd",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[11],
+                    label: '11-20',
+                    borderColor: "#8e5ea2",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[21],
+                    label: '21-30',
+                    borderColor: "#3cba9f",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[31],
+                    label: '31-40',
+                    borderColor: "#3cba9f",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[41],
+                    label: '41-50',
+                    borderColor: "#3cba9f",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[51],
+                    label: '51-60',
+                    borderColor: "#e8c3b9",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[61],
+                    label: '61-70',
+                    borderColor: "#c45850",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[71],
+                    label: '71-80',
+                    borderColor: "#c45850",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[81],
+                    label: '81 or older',
+                    borderColor: "#c45850",
+                    fill: false
+                },
+                {
+                    data: payloadTotalCounts[99],
+                    label: 'Unknown',
+                    borderColor: "#c45850",
+                    fill: false
+                }
+            ],
+            options: {
+                title: {
+                    display: true,
+                    text: countyName + ' COVID-19 Infection Count by Age'
+                }
+            }
+        }
+
+        const doc = countyCollection.doc('knox').collection('knoxdata').doc('age_data');
+        doc.get().then((_doc) => {
+            if(_doc.exists) {
+                // update:
+                if(_payload != undefined) {
+                    doc.update({'datasets': construct_count.datasets, 'labels': construct_count.labels, 'options': construct_count.options});
+                } else { doc.update({'datasets': null, 'labels': null, 'options': null});}
+            } else {
+                // force set instead:
+                if(_payload != undefined) {
+                    doc.set({'datasets': construct_count.datasets, 'labels': construct_count.labels, 'options': construct_count.options});
+                } else { doc.set({'datasets': null, 'labels': null, 'options': null});}
+            }
+        });
+    });
 }
 
 function initialize() {
@@ -934,7 +1128,9 @@ function initialize() {
     //generateTNAgeStruct();
     //generateCaseHistoryStruct();
     //generateConcentrationStruct();
-    generateTNSexStruct();
+    //generateTNSexStruct();
+    //genStateGeneralInfo();
+    genCountyAgeStruct();
 }
 
 app.listen(8080, function() {
