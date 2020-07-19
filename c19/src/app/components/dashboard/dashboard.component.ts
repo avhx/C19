@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MapService, LatLng } from 'src/app/map.service';
-import { HttpClient } from '@angular/common/http';
 
 import {} from '@google/maps'; 
 
@@ -13,7 +12,7 @@ import {} from '@google/maps';
 export class DashboardComponent implements OnInit {
   map: any;
 
-  constructor(mapService: MapService, private httpClient: HttpClient) {
+  constructor(private mapService: MapService) {
     // mapService.loadAPI.then((resolve) => {
     //   console.log("DONE!");
     //   var node = document.createElement("google-map");                 // Create a <li> node
@@ -26,10 +25,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 35.7730076, lng: -86.2820081 }, 
-      zoom: 7
-    });
+    this.mapService.loadMap("map"); // passes div id="map"
 
     // var TENNESSEE_BORDER = [
     //   { lng: -90.36, lat: 34.99 },
@@ -70,25 +66,5 @@ export class DashboardComponent implements OnInit {
     // });
   
     // border.setMap(this.map);
-
-    this.httpClient.get('./assets/TNCounties.json').subscribe(data => {
-      var COUNTY_INFO = <any[]> data;
-
-      for (var i = 0; i < COUNTY_INFO.length; i++) {
-        // var COUNTY_NAME = data[i][0]["name"];
-        var COUNTY_BORDER = <LatLng[]> data[i][1]["points"];
-
-        var county = new google.maps.Polygon({
-          paths: COUNTY_BORDER,
-          strokeColor: "#FF0000",
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: "#FF0000",
-          fillOpacity: 0.35
-        });
-
-        county.setMap(this.map)
-      }
-    })
   }
 }
