@@ -4,7 +4,7 @@
         <button mat-button [mat-dialog-close]="true"><mat-icon aria-hidden="false" aria-label="Close dialog box">close</mat-icon></button>
     </div>
     <mat-dialog-content>
-        <status-bar [countyName]="countyTitle"></status-bar>
+        <status-bar [countyName]="countyTitle" [pointData]="pointBack"></status-bar>
         <div id="stickyStats">
             <mat-card>
                 <h3><b>Current Active Cases:</b></h3> <h1>{{currentActive}}</h1>

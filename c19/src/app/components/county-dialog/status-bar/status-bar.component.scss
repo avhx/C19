@@ -1,0 +1,26 @@
+.mat-card {
+    font-weight: 500 !important;
+}
+
+.mat-card.warn {
+    background: #e64343 !important;
+    color: white !important;
+}
+
+.mat-card.meh {
+    background: #f0b400 !important;
+    color: white !important;
+}
+
+.mat-card.good {
+    background: #7bcc56 !important;
+    color: white !important;
+}
+
+.mat-card.normal {
+    background: inherit !important;
+}
+
+mat-icon {
+    float: right;
+}

@@ -19,6 +19,8 @@ export class CountyDialogComponent implements OnInit {
   public currentTotalCase: Number;
   public currentDeathCount: Number;
 
+  public pointBack: any[] = []// use in status badge
+
   public mobilityTable = [
     {'grocery_pharmacy': 0},
     {'park_pct': 0},
@@ -74,19 +76,29 @@ export class CountyDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.data.name);
     this.fyrebase.getCountyData(this.data.name).then(
       (val) => {
         console.log(val);
-
         // update counters:
         this.currentActive = val.total_active[val.total_active.length-1]
         this.currentTotalCase =  val.total_cases[val.total_cases.length-1]
+        
+        // Setup pointback:
+        this.pointBack[0] = new Date(val.date_labels[val.date_labels.length-30]); 
+        this.pointBack[1] = val.total_cases[val.total_cases.length-30]; // about a month back
+        this.pointBack[2] = new Date(val.date_labels[val.date_labels.length-1]);
+        this.pointBack[3] = this.currentTotalCase;
+
         this.currentDeathCount = val.total_death[val.total_death.length-1]
 
         this.lineChartLabels = val.date_labels;
         this.lineChartData.push({data: val.total_cases, label: 'Total Cases'});
         this.lineChartData.push({data: val.total_death, label: 'Total Deaths'});
         this.lineChartOptions.title.text = 'Total Cases/Deaths of COVID-19 in '+this.countyTitle + ' County';
+        this.dialogBarrier -= 1;
+      }, (err) => {
+        console.log(err);
         this.dialogBarrier -= 1;
       }
     )
