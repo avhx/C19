@@ -1,19 +1,33 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
   <span>Evo-19</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" onclick="document.location='https://devpost.com/'">
     <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
   </button>
 </mat-toolbar>
 
-<div id="map"></div>
-<button (click)="launchCountyDialog('knox')" mat-button>Basic</button>
+<div class="center-item">
+  <div id="map" [class]="centerPieceMode"></div>
+  <div id="cases" [class]="centerPieceMode">
+
+  </div>
+  <div id="age" [class]="centerPieceMode">
+
+  </div>
+  <div id="sex" [class]="centerPieceMode">
+    
+  </div>
+  <div class="toolbar">
+    <mat-slider thumbLabel tickInterval="1" [min]="sliderConfig.min" [max]="sliderConfig.max" [step]="sliderConfig.step" value={{sliderConfig.max}} (change)="sliderValueChange($event)"></mat-slider>
+    <mat-chip-list aria-label="Visualization-type selection">
+      <mat-chip color="primary" selected (click)="setPieceMode('map')">Map</mat-chip>
+      <mat-chip (click)="setPieceMode('cases')">State Cases</mat-chip>
+      <mat-chip (click)="setPieceMode('age')">Age Demographics</mat-chip>
+      <mat-chip (click)="setPieceMode('sex')">Sex Demographics</mat-chip>
+    </mat-chip-list>
+  </div>
+</div>
+<!-- <button (click)="launchCountyDialog('knox')" mat-button>Basic</button> -->
 
 <mat-divider></mat-divider>
 

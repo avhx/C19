@@ -21,7 +21,15 @@ export class DashboardComponent implements OnInit {
   newsTR: Observable<NewsCard[]>
   map: any;
 
-  constructor(private mapService: MapService, private dialog: MatDialog, private httpClient: HttpClient) {
+  centerPieceMode = "map";
+  sliderConfig = {
+    min: 3,
+    max: 7.5,
+    step: 1,
+  }
+  concentrationMonth = this.sliderConfig.max;
+
+  constructor(private mapService: MapService, private httpClient: HttpClient) {
     // mapService.loadAPI.then((resolve) => {
     //   console.log("DONE!");
     //   var node = document.createElement("google-map");                 // Create a <li> node
@@ -81,12 +89,22 @@ export class DashboardComponent implements OnInit {
     // border.setMap(this.map);
   }
 
-  public launchCountyDialog(countyName) {
-    //Launch dialogbox and let it handle firebase interactions
-    let _config = new MatDialogConfig();
-    _config.width = "1000px";
-    _config.data = {name: countyName}
-    const ref = this.dialog.open(CountyDialogComponent, _config);
+  public sliderValueChange(event: any) {
+    if(this.centerPieceMode == 'map') {
+      this.concentrationMonth = event.value;
+      //invoke change in map color:
+
+    } else if(this.centerPieceMode == 'cases') {
+      // do something for new map
+    } else if(this.centerPieceMode == 'age') {
+
+    } else {
+      
+    }
+  }
+
+  public setPieceMode(val) {
+    this.centerPieceMode = val;
   }
 
   public getNewsTN(): Observable<NewsCard[]> {

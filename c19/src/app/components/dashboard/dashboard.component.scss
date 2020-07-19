@@ -2,8 +2,30 @@
   flex: 1 1 auto;
 }
 
-#map {
-  margin: 7% auto;
+.center-item {
+  width: 100%;
+  height: 600px;
+  .toolbar {
+    grid-template-columns: auto auto;
+    margin: 0 20%;
+    width: 60%;
+    display: grid;
+
+    mat-slider{
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+
+    mat-chip-list {
+      margin-left: 50px;
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+  }
+}
+
+#map, #cases, #age, #sex {
+  margin: 2% auto;
   width: 60%;
   height: 50%;
 }
@@ -22,4 +44,21 @@ h1 {
 
 app-news-card {
   padding: 5% 2%;
+  height: 75%;
+}
+
+#map.cases, #map.age, #map.sex {
+  display: none;
+}
+
+#cases.map, #cases.age,#cases.sex {
+  display: none;
+}
+
+#age.map, #age.cases,#age.sex {
+  display: none;
+}
+
+#sex.map, #sex.cases,#sex.age {
+  display: none;
 }
