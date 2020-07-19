@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { MapService, LatLng } from 'src/app/map.service';
-import {MatDialog,  MatDialogConfig} from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { MatDialog,  MatDialogConfig } from '@angular/material/dialog';
 
 import {} from '@google/maps'; 
 import { CountyDialogComponent } from '../county-dialog/county-dialog.component';
+import { NewsCardComponent, NewsCard } from '../news-card/news-card.component';
 import { ROUTER_CONFIGURATION } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,9 +16,11 @@ import { ROUTER_CONFIGURATION } from '@angular/router';
 })
 
 export class DashboardComponent implements OnInit {
+  newsTN: NewsCard[];
+  default: NewsCard;
   map: any;
 
-  constructor(private mapService: MapService, private dialog: MatDialog) {
+  constructor(private mapService: MapService, private dialog: MatDialog, private httpClient: HttpClient) {
     // mapService.loadAPI.then((resolve) => {
     //   console.log("DONE!");
     //   var node = document.createElement("google-map");                 // Create a <li> node
@@ -29,6 +34,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.mapService.loadMap("map"); // passes div id="map"
+    this.initNews();
 
     // var TENNESSEE_BORDER = [
     //   { lng: -90.36, lat: 34.99 },
@@ -77,5 +83,35 @@ export class DashboardComponent implements OnInit {
     _config.width = "1000px";
     _config.data = {name: countyName}
     const ref = this.dialog.open(CountyDialogComponent, _config);
+  }
+
+  public initNews() {
+    // Reads Tennessee focused news first
+    // INITIALIZE...
+    this.default = {
+      "source": {
+        "id": "0",
+        "name": "0",
+      },
+      "author": "0",
+      "title": "0",
+      "description": "0",
+      "url": "0",
+      "urlToImage": "0",
+      "publishedAt": "0",
+      "content": "0"
+    }
+    this.newsTN.push(this.default);
+    console.log(this.newsTN)
+
+    this.httpClient.get('./assets/news-everything.json').subscribe(data => {
+      for (var i = 0; i < data["articles"].length; i++) {
+        let x = data["articles"][i];
+
+        this.newsTN.push(x)
+      }
+    })
+
+    // Now reads more general news
   }
 }

@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NewsCardComponent } from './components/news-card/news-card.component';
 
 // Material
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -55,6 +56,7 @@ import { CountyDialogComponent } from './components/county-dialog/county-dialog.
     AppComponent,
     DashboardComponent,
     CountyDialogComponent,
+    NewsCardComponent
   ],
   imports: [
     BrowserModule,
