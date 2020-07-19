@@ -101,15 +101,14 @@ export class DashboardComponent implements OnInit {
       "publishedAt": "0",
       "content": "0"
     }
-    this.newsTN.push(this.default);
-    console.log(this.newsTN)
+    this.newsTN = [this.default]
 
     this.httpClient.get('./assets/news-everything.json').subscribe(data => {
       for (var i = 0; i < data["articles"].length; i++) {
         let x = data["articles"][i];
-
         this.newsTN.push(x)
       }
+      console.log(this.newsTN)
     })
 
     // Now reads more general news
