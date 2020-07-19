@@ -51,12 +51,17 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import {environment} from './config';
 import { CountyDialogComponent } from './components/county-dialog/county-dialog.component';
 
+// Graphing:
+import { ChartsModule } from 'ng2-charts';
+import { StatusBarComponent } from './components/county-dialog/status-bar/status-bar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     CountyDialogComponent,
-    NewsCardComponent
+    NewsCardComponent,
+    StatusBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,7 +105,8 @@ import { CountyDialogComponent } from './components/county-dialog/county-dialog.
     MatTooltipModule,
     MatTreeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

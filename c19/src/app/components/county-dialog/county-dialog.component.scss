@@ -26,6 +26,29 @@ mat-dialog-content {
     margin-bottom: 30px;
 }
 
-.loadHolder {
-    
+#stickyStats {
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    mat-card {
+        margin: 15px 15px;
+        h1 {
+            text-align: center;
+        }
+    }
+
+    mat-card:first-child {
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+
+    mat-card:nth-child(2) {
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+
+    mat-card:last-child{
+        grid-column-start: 3;
+        grid-column-end: 4;
+    }
 }

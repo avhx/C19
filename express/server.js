@@ -747,11 +747,11 @@ function generateCaseHistoryStruct() {
                     if(tested_new == null) {tested_new = 0;}
                     var total_active= rds[9];
                     if(total_active == null) {total_active = 0;}
-                    var new_active = rds[11];
+                    var new_active = rds[10];
                     if(new_active == null) {new_active = 0;}
-                    var total_death = rds[13];
+                    var total_death = rds[15];
                     if(total_death == null) {total_death = 0;}
-                    var new_death = rds[14];
+                    var new_death = rds[16];
                     if(new_death == null) {new_death = 0;}
                     
                     if(_labels[date] == undefined) {
@@ -1126,11 +1126,11 @@ function initialize() {
     //generateMobilityStruct();
     //generateTNRaceStruct();
     //generateTNAgeStruct();
-    //generateCaseHistoryStruct();
+    generateCaseHistoryStruct();
     //generateConcentrationStruct();
     //generateTNSexStruct();
     //genStateGeneralInfo();
-    genCountyAgeStruct();
+    //genCountyAgeStruct();
 }
 
 app.listen(8080, function() {
