@@ -92,8 +92,7 @@ export class DashboardComponent implements OnInit {
   public sliderValueChange(event: any) {
     if(this.centerPieceMode == 'map') {
       this.concentrationMonth = event.value;
-      //invoke change in map color:
-
+      this.mapService.loadMap("map", this.concentrationMonth-3);
     } else if(this.centerPieceMode == 'cases') {
       // do something for new map
     } else if(this.centerPieceMode == 'age') {

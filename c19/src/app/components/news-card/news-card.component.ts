@@ -25,9 +25,7 @@ export class NewsCard {
 export class NewsCardComponent implements OnInit {
   @Input() news: NewsCard;
 
-  constructor() {
-    console.log("New component!")
-  }
+  constructor() { }
 
   ngOnInit() {
   }

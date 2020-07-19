@@ -6,6 +6,8 @@ import {} from '@google/maps';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { CountyDialogComponent } from './components/county-dialog/county-dialog.component';
 
+import { FyrebaseService } from './fyrebase.service';
+
 export interface County {
   name: string,
   concentration: string,
@@ -27,7 +29,7 @@ export class MapService {
   map: any;
   countyMap: any;
   
-  constructor(private httpClient: HttpClient, private dialog: MatDialog) {
+  constructor(private httpClient: HttpClient, private dialog: MatDialog, private fS: FyrebaseService) {
     // console.log("Map Service instantiated!");
     // this.loadAPI = new Promise((resolve) => {
     //   this.loadMapAPI();
@@ -47,7 +49,7 @@ export class MapService {
   //   document.getElementsByTagName('head')[0].appendChild(node);
   // }
 
-  public loadMap(id: string) {
+  public loadMap(id: string, concentration: number=-1) {
     var styledMapType = new google.maps.StyledMapType([
       {
         "elementType": "geometry",
@@ -279,7 +281,7 @@ export class MapService {
     this.map.mapTypes.set('styled_map', styledMapType)
     this.map.setMapTypeId('styled_map')
 
-    this.loadCounties();
+    this.loadCounties(concentration);
   }
 
   public launchCountyDialog(countyName) {
@@ -290,46 +292,56 @@ export class MapService {
     const ref = this.dialog.open(CountyDialogComponent, _config);
   }
 
-  public loadCounties() {
+  public loadCounties(concentration: number=-1) {
     this.countyMap = new Map<google.maps.Polygon, string>();
 
-    this.httpClient.get('./assets/TNCounties.json').subscribe(data => {
-      var COUNTY_INFO = <any[]> data;
+    // Determine concentrations overlay for the map
+    this.fS.getCountyConcentrations().then((countyCon) => {
+      this.httpClient.get('./assets/TNCounties.json').subscribe(data => {
+        var COUNTY_INFO = <any[]> data;
 
-      for (var i = 0; i < COUNTY_INFO.length; i++) {
-        var COUNTY_NAME = data[i][0]["name"];
-        var COUNTY_BORDER = <LatLng[]> data[i][1]["points"];
-        var COUNTY_CONCENTRATION = "white"
+        for (var i = 0; i < COUNTY_INFO.length; i++) {
+          var COUNTY_NAME = data[i][0]["name"];
+          var COUNTY_BORDER = <LatLng[]> data[i][1]["points"];
+          var COUNTY_CONCENTRATION = 'white';
 
-        var COUNTY_COUNTY = new google.maps.Polygon({
-          paths: COUNTY_BORDER,
-          strokeColor: "aliceblue",
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: COUNTY_CONCENTRATION,
-          fillOpacity: 0.35
-        });
-
-        this.countyMap.set(COUNTY_COUNTY, COUNTY_NAME);
-
-        // Add in event listeners
-        var _self = this
-        google.maps.event.addListener(COUNTY_COUNTY, 'click', function() {
-          // console.log(this)
-          const county = _self.countyMap.get(this)
-          _self.launchCountyDialog(county.toLowerCase());
-        });
-
-        google.maps.event.addListener(COUNTY_COUNTY, 'mouseover', function() {
-          this.setOptions({fillOpacity: "0.5"})
-        });
-
-        google.maps.event.addListener(COUNTY_COUNTY, 'mouseout', function() {
-          this.setOptions({fillOpacity: "0.35"})
-        });
-
-        COUNTY_COUNTY.setMap(this.map) // preloads county
-      }
-    })
+          var tmp = countyCon[COUNTY_NAME.toLowerCase()];
+          if (tmp != null && (concentration == -1 || concentration == 4.5)) {
+            COUNTY_CONCENTRATION = tmp[5] // Current month
+          } else if (tmp != null) {
+            COUNTY_CONCENTRATION = tmp[concentration] // Previous months
+          }
+  
+          var COUNTY_COUNTY = new google.maps.Polygon({
+            paths: COUNTY_BORDER,
+            strokeColor: "aliceblue",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: COUNTY_CONCENTRATION,
+            fillOpacity: 0.35
+          });
+  
+          this.countyMap.set(COUNTY_COUNTY, COUNTY_NAME);
+  
+          // Add in event listeners
+          var _self = this
+          google.maps.event.addListener(COUNTY_COUNTY, 'click', function() {
+            // console.log(this)
+            const county = _self.countyMap.get(this)
+            _self.launchCountyDialog(county.toLowerCase());
+          });
+  
+          google.maps.event.addListener(COUNTY_COUNTY, 'mouseover', function() {
+            this.setOptions({fillOpacity: "0.5"})
+          });
+  
+          google.maps.event.addListener(COUNTY_COUNTY, 'mouseout', function() {
+            this.setOptions({fillOpacity: "0.35"})
+          });
+  
+          COUNTY_COUNTY.setMap(this.map) // preloads county
+        }
+      })
+    });
   }
 }
