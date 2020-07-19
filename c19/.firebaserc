@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "knoxcov-401fd": {
+      "hosting": {
+        "c19": [
+          "knoxcov-401fd"
+        ]
+      }
+    }
+  }
+}
