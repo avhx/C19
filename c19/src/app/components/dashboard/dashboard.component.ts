@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MapService, LatLng } from 'src/app/map.service';
+import {MatDialog,  MatDialogConfig} from '@angular/material/dialog';
 
 import {} from '@google/maps'; 
+import { CountyDialogComponent } from '../county-dialog/county-dialog.component';
+import { ROUTER_CONFIGURATION } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +15,7 @@ import {} from '@google/maps';
 export class DashboardComponent implements OnInit {
   map: any;
 
-  constructor(private mapService: MapService) {
+  constructor(private mapService: MapService, private dialog: MatDialog) {
     // mapService.loadAPI.then((resolve) => {
     //   console.log("DONE!");
     //   var node = document.createElement("google-map");                 // Create a <li> node
@@ -66,5 +69,13 @@ export class DashboardComponent implements OnInit {
     // });
   
     // border.setMap(this.map);
+  }
+
+  public launchCountyDialog(countyName) {
+    //Launch dialogbox and let it handle firebase interactions
+    let _config = new MatDialogConfig();
+    _config.width = "1000px";
+    _config.data = {name: countyName}
+    const ref = this.dialog.open(CountyDialogComponent, _config);
   }
 }

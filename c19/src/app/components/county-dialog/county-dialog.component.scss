@@ -1,0 +1,31 @@
+.header {
+    display: grid;
+    grid-template-columns: auto 30px;
+    align-content: center;
+    height: 48px;
+    margin-bottom: 30px;
+
+    h2 {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        margin: 0;
+    }
+
+    button {
+        grid-column-start: 2;
+        grid-column-end: 2;
+        padding: 0;
+        min-width: 0px !important;
+        width: 30px !important;
+        height: 30px;
+        margin-bottom: 2px;
+    }
+}
+
+mat-dialog-content {
+    margin-bottom: 30px;
+}
+
+.loadHolder {
+    
+}

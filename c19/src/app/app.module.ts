@@ -44,10 +44,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 
+// Firebase:
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {environment} from './config';
+import { CountyDialogComponent } from './components/county-dialog/county-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    CountyDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,8 +97,11 @@ import {MatTreeModule} from '@angular/material/tree';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CountyDialogComponent]
 })
 export class AppModule { }
