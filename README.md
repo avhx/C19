@@ -1,4 +1,4 @@
-#C19
+# C19
 Covid-19 tracking utility for Tennessee
 
 ## Inspiration
