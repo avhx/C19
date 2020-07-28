@@ -1,6 +1,8 @@
 # C19
 Covid-19 tracking utility for Tennessee
 
+**Team Members:** Ankush Patel, Vijay Rajagopal
+
 ## Inspiration
 We have always wanted to take on a data visualization project and now seems like the right time and place with _Covid-19_. Especially so, since there are so many different lenses that we can apply, analyze, and learn from.
 
